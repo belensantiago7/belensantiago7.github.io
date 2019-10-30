@@ -9,7 +9,7 @@ class MyVisualizer extends AbstractVisualizer {
     }
 
     /**
-     * TODO(week 4): 
+     * TODO(week 4):
      * 1) Call drawShapes() to re-draw the visual at the current time index.
      *    -- If you want to "conditionally" draw (ex. only draw at a certain
      *    BEAT in the song), what do you need to add?
@@ -19,11 +19,11 @@ class MyVisualizer extends AbstractVisualizer {
     updateVisual(peakIndex) {
       const audioEl = document.querySelector('#audio');
 
-      // If we pass an index greater than the # peaks, 
+      // If we pass an index greater than the # peaks,
       if (peakIndex >= this.peaks.length) {
           return;
       }
-      
+
       // TODO(you): "If"-statement here.
       // 1) Inspect the audioEl for time-related properties.
       // 2) Access the peak at peakIndex from the peaks array.
@@ -65,7 +65,7 @@ getToken().then((token) => {
 /**
  * TODO(you): Add a 'click' event listener that starts the music.
  */
-document.getElementById('playButton').addEventListener('click', (clickEvent) => { 
+document.getElementById('playButton').addEventListener('click', (clickEvent) => {
   clickEvent.preventDefault();
 
   const audioEl = document.querySelector('#audio');
@@ -85,13 +85,13 @@ document.getElementById('playButton').addEventListener('click', (clickEvent) => 
           audioEl.src = previewUrl;
 
           requestAudio(previewUrl, (audio) => {
-            // TODO(you): Use analyzeAudio to apply frequency analysis. 
+            // TODO(you): Use analyzeAudio to apply frequency analysis.
 
             // TODO(you): Create an instance of MyVisualizer using the
             // analyzed audio.
 
             audioEl.play();
-            
+
             // Use MyVisualizer's startVisual to start visualization.
             visualizer.startVisual();
           });
@@ -113,3 +113,6 @@ document.getElementById('playButton').addEventListener('click', (clickEvent) => 
 		document.getElementById('playCircle').setAttribute("class", "playing");
   }
 });
+let visualizer = new MyVisualizer();
+
+visualizer.drawSquare({x: 100, y:100}, 100, {x:100, y:200});

@@ -22,15 +22,31 @@ class AbstractVisualizer {
     context.strokeStyle = rectangleProperties.color || '#FF00000';
 
     context.moveTo(point1.x, point1.y);
+    context.beginPath();
     context.lineTo(point2.x, point2.y);
     context.lineTo(point3.x, point3.y);
     context.lineTo(point4.x, point4.y);
     context.lineTo(point1.x, point1.y);
     context.closePath();
     context.fill();
+    context.stroke();
   }
 
-  drawSquare() {
+  drawSquare(startingPoint, lineWidth, squareProperties ={}) {
+    const context = this.canvas.getContext("2d");
+    context.lineWidth = squareProperties.width || 5;
+    context.strokeStyle = squareProperties.color || '#FF00000';
+
+    context.beginPath();
+    context.moveTo(startingPoint.x, startingPoint.y);
+    context.lineTo(startingPoint.x + lineWidth, startingPoint.y);
+    context.lineTo(startingPoint.x + lineWidth, startingPoint.y + lineWidth);
+    context.lineTo(startingPoint.x, startingPoint.x + lineWidth);
+    context.lineTo(startingPoint.x, startingPoint.y)
+    context.closePath();
+    context.fill();
+    context.stroke();
+
     // TODO(week 3): Implement.
   }
 
