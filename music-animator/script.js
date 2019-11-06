@@ -19,7 +19,7 @@ class MyVisualizer extends AbstractVisualizer {
     updateVisual(peakIndex) {
       const audioEl = document.querySelector('#audio');
 
-      // If we pass an index greater than the # peaks,
+      //
       if (peakIndex >= this.peaks.length) {
           return;
       }
@@ -30,8 +30,10 @@ class MyVisualizer extends AbstractVisualizer {
       // 3) Compare the time properties to peak properties (part 1 and 2 above):
       //    -- If the audio's current time is greater or equal to the time of
       //    the peak, draw visualizations (drawShapes).
-      if (true) {
+let currentPeak = this.peaks[peakIndex]
+      if (currentPeak.timeOfPeak<= audioEl.currentTime) {
 
+        this.drawShapes();
         // Update the frame.
         requestAnimationFrame(() => {
           this.updateVisual(peakIndex + 1)
@@ -48,6 +50,9 @@ class MyVisualizer extends AbstractVisualizer {
      * TODO(week 4): Draw the shapes you'd expect to see in your visual.
      */
     drawShapes() {
+    //  this.drawSquare(generateRandomPoint(), 100);
+      this.drawSquare(generateRandomPoint(), 100, generateRandomPoint());
+
         // Look at AbstractVisualizer class for functions.
     }
 }
@@ -85,10 +90,9 @@ document.getElementById('playButton').addEventListener('click', (clickEvent) => 
           audioEl.src = previewUrl;
 
           requestAudio(previewUrl, (audio) => {
-            // TODO(you): Use analyzeAudio to apply frequency analysis.
-
+            let analyzedAudio = analyzeAudio(audio);
             // TODO(you): Create an instance of MyVisualizer using the
-            // analyzed audio.
+            let visualizer = new MyVisualizer(analyzedAudio);
 
             audioEl.play();
 
@@ -113,6 +117,3 @@ document.getElementById('playButton').addEventListener('click', (clickEvent) => 
 		document.getElementById('playCircle').setAttribute("class", "playing");
   }
 });
-let visualizer = new MyVisualizer();
-
-visualizer.drawSquare({x: 100, y:100}, 100, {x:100, y:200});

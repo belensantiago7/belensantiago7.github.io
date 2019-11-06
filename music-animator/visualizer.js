@@ -76,6 +76,7 @@ function generateRandomColor() {
 
 /**
  * Generates a random value between [min, max] (inclusive).
+ 2, 3, 4,5,2,
  */
 function generateRandomValue(minValue = 1, maxValue = 10) {
   min = Math.ceil(minValue);
@@ -89,7 +90,7 @@ function generateRandomPoint() {
   // HINT: we can use the constants CANVAS_HEIGHT and CANVAS_WIDTH for the max
   //     x and y values.
   return {
-    x: 0,
-    y: 0,
+    x: generateRandomValue(0, CANVAS_HEIGHT),
+    y: generateRandomValue(0, CANVAS_WIDTH)
   };
 }
