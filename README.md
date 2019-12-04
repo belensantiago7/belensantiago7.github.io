@@ -73,5 +73,14 @@ press enter.
 *  `pwd` - Prints out the full file path that you're currently in.
 
 # Excercies
-* [Week 3](exercises/week3.md)
-* [Week 4](exercises/week4.md)
+* [Week 3](/exercises/week3.md)
+* [Week 4](/exercises/week4.md)
+* [week 5](/exercises/week5.md)
+* [week 6](/exercises/week6.md)
+* [week 7](/exercises/week7.md)
+* [week 8](/exercises/week8.md)
+
+# Other links
+* [Slide deck](https://docs.google.com/presentation/d/15rT3DGiQTCAWaJULosnOFOMp0r36O1FfkeS_KMdputo/edit#slide=id.p)
+* [Game of Life demo](https://bitstorm.org/gameoflife/)
+
