@@ -41,7 +41,7 @@ class Canvas {
     this.ctx.fillStyle = "yellow";
     this.ctx.lineWidth = 1;
     cells.forEach((cell, i) => {
-      this.ctx.fillRect( this.cellSize - 1 this.cellSize - 1)
+      this.ctx.fillRect(
         cell[0] * this.cellSize + 1,
         cell[1] * this.cellSize + 1,
         this.cellSize - 1,
