@@ -3,6 +3,85 @@ class GameOfLife {
   }
 
   next(shape) {
+		let neighbours = {};
+
+    for(let i = 0; i < shape.length; i++) {
+      let cell = shape[i];
+      let key;
+
+      key = 'c'+(cell[0]-1)+','+(cell[1]-1);
+			if (neighbours[key]) {
+				neighbours[key].n++;
+			} else {
+				neighbours[key] = {n: 1, cell: [cell[0]-1, cell[1]-1]};
+			}
+
+			key = 'c'+(cell[0])+','+(cell[1]-1);
+			if (neighbours[key]) {
+				neighbours[key].n++;
+			} else {
+				neighbours[key] = {n: 1, cell: [cell[0], cell[1]-1]};
+			}
+
+			key = 'c'+(cell[0]+1)+','+(cell[1]-1);
+			if (neighbours[key]) {
+				neighbours[key].n++;
+			} else {
+				neighbours[key] = {n: 1, cell: [cell[0]+1, cell[1]-1]};
+			}
+
+			key = 'c'+(cell[0]-1)+','+(cell[1]);
+			if (neighbours[key]) {
+				neighbours[key].n++;
+			} else {
+				neighbours[key] = {n: 1, cell: [cell[0]-1, cell[1]]};
+			}
+
+			key = 'c'+(cell[0]+1)+','+(cell[1]);
+			if (neighbours[key]) {
+				neighbours[key].n++;
+			} else {
+				neighbours[key] = {n: 1, cell: [cell[0]+1, cell[1]]};
+			}
+
+			key = 'c'+(cell[0]-1)+','+(cell[1]+1);
+			if (neighbours[key]) {
+				neighbours[key].n++;
+			} else {
+				neighbours[key] = {n: 1, cell: [cell[0]-1, cell[1]+1]};
+			}
+
+			key = 'c'+(cell[0])+','+(cell[1]+1);
+			if (neighbours[key]) {
+				neighbours[key].n++;
+			} else {
+				neighbours[key] = {n: 1, cell: [cell[0], cell[1]+1]};
+			}
+
+			key = 'c'+(cell[0]+1)+','+(cell[1]+1);
+			if (neighbours[key]) {
+				neighbours[key].n++;
+			} else {
+				neighbours[key] = {n: 1, cell: [cell[0]+1, cell[1]+1]};
+			}
+		}
+
+    for(let i = 0; i < shape.length; i++) {
+      let cell = shape[i];
+			let key = 'c' + cell[0] + ',' + cell[1];
+			if (neighbours[key]) {
+				neighbours[key].populated = true;
+			}
+		};
+
+		let newShape = [];
+		for (let key in neighbours) {
+			if ((neighbours[key].n == 2 && neighbours[key].populated) || neighbours[key].n == 3) {
+				newShape.push(neighbours[key].cell);
+			}
+		}
+
+		return newShape;
   }
 }
 
@@ -52,12 +131,12 @@ class Canvas {
   click(fn) {
     this.obj.addEventListener('click', (evt) => {
       let rect = canvas.obj.getBoundingClientRect();
-      let left = Math.floor(rect.left + window.pageXOffset);
-      let top = Math.floor(rect.top + window.pageYOffset);
+      let left = rect.left;
+      let top = rect.top;
       let cellSize = canvas.cellSize;
       let clickEvent = {};
-      clickEvent.cellX = Math.floor((evt.clientX - left + window.pageXOffset) / cellSize);
-      clickEvent.cellY = Math.floor((evt.clientY - top + window.pageYOffset - 5) / cellSize);
+      clickEvent.cellX = Math.floor((evt.clientX - left) / cellSize);
+      clickEvent.cellY = Math.floor((evt.clientY - top) / cellSize);
       fn(clickEvent);
     });
   }
@@ -119,6 +198,10 @@ class Controls {
     this.canvas.click((evt) => {
       this.shape.toggle([evt.cellX, evt.cellY]);
     });
+
+		document.getElementById('next').addEventListener('click', () => {
+			this.next();
+		});
   }
 
   setGeneration(gen) {
@@ -128,6 +211,10 @@ class Controls {
   }
 
   next() {
+		let shapeData = this.shape.get();
+		let newShapeData = this.gameOfLife.next(shapeData);
+		this.shape.set(newShapeData);
+		this.shape.redraw();
   }
 }
 
